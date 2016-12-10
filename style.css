@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+    background-color: #3f3f3f;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+#app canvas {
+    margin: 0 auto;
+}
