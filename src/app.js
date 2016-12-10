@@ -3,7 +3,7 @@
 
     window.addEventListener('load', init);
 
-    const srcPath = '/src/';
+    const srcPath = 'src/';
     const scripts = [
         'game.js'
     ];
