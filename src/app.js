@@ -5,13 +5,16 @@
 
     const srcPath = 'src/';
     const scripts = [
-        'game.js'
+        'game.js',
+        'text.js'
     ];
 
     let updateCallbacks = [];
+    let services = [];
 
     function init() {
         window.registerUpdate = registerUpdate;
+        window.registerService = registerService;
         appendScripts().then(startGame);
     }
 
@@ -23,10 +26,20 @@
         };
         const ctx = initContext(canvas);
         const initialState = {
-            size,
-            ctx
+            ctx,
+            size
         };
-        update(initialState);
+        update(Object.assign({}, initServices()));
+
+        function initServices() {
+            return services.reduce((currentState, service) =>
+                Object.assign(
+                    {},
+                    currentState,
+                    {[service.name]: new service.Service(ctx)}
+                )
+            , initialState);
+        }
     }
 
     function update(state) {
@@ -56,6 +69,13 @@
             throw new Error('Update callback passed is not a function');
         }
         updateCallbacks.push(callback);
+    }
+
+    function registerService(name, service) {
+        services.push({
+            name,
+            Service: service
+        });
     }
 
     function initContext(canvas) {
